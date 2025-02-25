@@ -6,13 +6,28 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using ImageEditor.ViewModels;
 using ImageEditor.Views;
+using System;
+using System.IO;
 
 namespace ImageEditor;
 
 public partial class App : Application
 {
+    public Image? image;
     public override void Initialize()
     {
+        try
+        {
+            // Read a text file line by line.
+            string[] lines = File.ReadAllLines("../image.txt");
+
+            image = new Image(lines[0], lines[1]);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading file: {ex.Message}");
+        }
+
         AvaloniaXamlLoader.Load(this);
     }
 
