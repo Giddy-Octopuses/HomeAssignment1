@@ -3,28 +3,25 @@
         xmlns:vm="using:ImageEditor.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
-        Width = "400" Height = "800"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="800"
+        Width = "500" Height = "800"
         x:Class="ImageEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="ImageEditor">
-    <StackPanel>
-                <Border
-                        Margin="10"
-                        Background="White">
-                        
-                        <TextBlock TextAlignment="Left" Margin="10" FontSize="20">Name of the file</TextBlock>
-                </Border>
-                <Grid ColumnDefinitions="Auto Auto Auto" RowDefinitions="Auto Auto Auto Auto Auto" >
-                        <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center"/>     
+        <Border Padding="10">
+        <StackPanel>
+                        <Grid RowDefinitions="Auto Auto Auto Auto" >
+                                <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center"/>     
 
-                        <TextBox Grid.Row="2" x:Name="FileName" Text="Name of the file" Width="340"/>
-                        <Button Grid.Row="3" Grid.Column="0" Width="150">load</Button>
-                        <Button Grid.Row="3" Grid.Column="1" Width="150">save</Button>          
-                </Grid>
-    </StackPanel>    
-
+                                <TextBox Grid.Row="2" x:Name="FileName" Text="Name of the file" Margin="10" Width="300"/>
+                                <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" >
+                                        <Button Grid.Column="0" Margin="10">load</Button>
+                                        <Button Grid.Column="1" Margin="10">save</Button> 
+                                </Grid>
+                        </Grid>
+        </StackPanel>    
+        </Border>
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
