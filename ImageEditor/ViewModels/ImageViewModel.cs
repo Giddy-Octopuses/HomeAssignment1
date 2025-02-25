@@ -1,16 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-public class Image 
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace ImageEditor.ViewModels;
+
+public class ImageViewModel : ObservableObject
 {
     public int Height { get; set; } = 0;
     public int Width { get; set; } = 0;
 
-    public List<int>? Pixel { get; set; } = null;
+    public ObservableCollection<PixelViewModel> Pixels { get; } = new();
 
     public string? FileName { get; set; } = "image.txt";
 
-    public Image(string size, string pixelData)
+    public ImageViewModel(string size, string pixelData)
     {
         // Parse width and length from the size string
         var dimensions = size.Split(' ');
@@ -24,7 +29,9 @@ public class Image
             throw new ArgumentException("Invalid size format. Expected format: \"width length\"");
         }
 
-        // Convert pixelData string into a list of integers
-        Pixel = pixelData.Select(c => c == '1' ? 1 : 0).ToList();
+        foreach (char c in pixelData)
+        {
+            Pixels.Add(new PixelView(c == '1' ? 1 : 0));
+        }
     }
 }
