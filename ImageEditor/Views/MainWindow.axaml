@@ -7,6 +7,7 @@
         Width = "500" Height = "800"
         x:Class="ImageEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        x:CompileBindings="True"
         Icon="/Assets/avalonia-logo.ico"
         Title="ImageEditor">
         <Border Padding="10">
@@ -14,8 +15,28 @@
 
                         <Grid RowDefinitions="Auto Auto Auto Auto" >
                                 <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center"/>     
+                                <Grid Grid.Row="1">
+                                        <ItemsControl ItemsSource="{Binding Image.Pixels}">
 
-                                <TextBox Grid.Row="2" x:Name="FileName" Text="{Binding filename}" Margin="10" Width="300"/>
+                                                <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                        <UniformGrid Columns="{Binding Image.Height}" Rows="{Binding Image.Width}" />
+                                                        </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+
+                                                <ItemsControl.ItemTemplate>
+                                                        <DataTemplate x:DataType="vm:PixelViewModel">
+                                                        <Button Background="{Binding Color}"
+                                                                Command="{Binding ToggleCommand}"
+                                                                BorderThickness="0"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Stretch"/>
+                                                        </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                </Grid>
+                                <TextBox Grid.Row="2" x:Name="FileName" Text="Name of the file" Margin="10" Width="300"/>
+
                                 <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" >
                                         <Button Grid.Column="0" Margin="10">load</Button>
                                         <Button Grid.Column="1" Margin="10">save</Button> 

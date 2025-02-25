@@ -1,15 +1,13 @@
 using Avalonia.Controls;
-using System;
-using System.IO;
+using ImageEditor.ViewModels;
 
 namespace ImageEditor.Views;
 
 public partial class MainWindow : Window
 {
-    public Image? image;
     public MainWindow()
     {
-    
+
         try
         {
             // Read a text file line by line.
@@ -24,8 +22,7 @@ public partial class MainWindow : Window
         {
             Console.WriteLine($"Error reading file: {ex.Message}");
         }
-        
-
-        InitializeComponent();
+     
+        //InitializeComponent();
     }
 }
