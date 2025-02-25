@@ -7,7 +7,7 @@
         Width = "500" Height = "800"
         x:Class="ImageEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        DataContext="{Binding}"
+        x:CompileBindings="True"
         Icon="/Assets/avalonia-logo.ico"
         Title="ImageEditor">
         <Border Padding="10">
@@ -15,7 +15,7 @@
                         <Grid RowDefinitions="Auto Auto Auto Auto" >
                                 <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center"/>     
                                 <Grid Grid.Row="1">
-                                        <ItemsControl Items="{Binding Image.Pixels}">
+                                        <ItemsControl ItemsSource="{Binding Image.Pixels}">
 
                                                 <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
@@ -24,10 +24,12 @@
                                                 </ItemsControl.ItemsPanel>
 
                                                 <ItemsControl.ItemTemplate>
-                                                        <DataTemplate x:DataType="local:PixelViewModel">
+                                                        <DataTemplate x:DataType="vm:PixelViewModel">
                                                         <Button Background="{Binding Color}"
                                                                 Command="{Binding ToggleCommand}"
-                                                                BorderThickness="0"/>
+                                                                BorderThickness="0"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Stretch"/>
                                                         </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                         </ItemsControl>

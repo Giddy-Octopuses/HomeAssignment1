@@ -13,7 +13,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             string[] lines = File.ReadAllLines("../image.txt");
 
-            Image = new Image(lines[0], lines[1]);
+            Image = new ImageViewModel(lines[0], lines[1]);
         }
         catch (Exception ex)
         {

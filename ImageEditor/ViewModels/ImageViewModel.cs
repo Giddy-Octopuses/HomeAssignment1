@@ -11,7 +11,7 @@ public class ImageViewModel : ObservableObject
     public int Height { get; set; } = 0;
     public int Width { get; set; } = 0;
 
-    public ObservableCollection<PixelViewModel> Pixels { get; } = new();
+    public List<PixelViewModel> Pixels { get; set;} = new();
 
     public string? FileName { get; set; } = "image.txt";
 
@@ -19,7 +19,7 @@ public class ImageViewModel : ObservableObject
     {
         // Parse width and length from the size string
         var dimensions = size.Split(' ');
-        if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
+        if (int.TryParse(dimensions[1], out int height) && int.TryParse(dimensions[0], out int width))
         {
             Height = height;
             Width = width;
@@ -31,7 +31,7 @@ public class ImageViewModel : ObservableObject
 
         foreach (char c in pixelData)
         {
-            Pixels.Add(new PixelView(c == '1' ? 1 : 0));
+            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
         }
     }
 }
