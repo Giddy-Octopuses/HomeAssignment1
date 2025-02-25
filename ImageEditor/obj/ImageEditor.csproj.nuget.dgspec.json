@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gabij\\OneDrive\\Documents\\Advanced OOP\\HomeAssignment1\\ImageEditor\\ImageEditor.csproj": {}
+    "C:\\Users\\emmaj\\Documents\\SDU\\Semester 2\\Advanced OOP\\HomeAssignment1-1\\ImageEditor\\ImageEditor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gabij\\OneDrive\\Documents\\Advanced OOP\\HomeAssignment1\\ImageEditor\\ImageEditor.csproj": {
+    "C:\\Users\\emmaj\\Documents\\SDU\\Semester 2\\Advanced OOP\\HomeAssignment1-1\\ImageEditor\\ImageEditor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gabij\\OneDrive\\Documents\\Advanced OOP\\HomeAssignment1\\ImageEditor\\ImageEditor.csproj",
+        "projectUniqueName": "C:\\Users\\emmaj\\Documents\\SDU\\Semester 2\\Advanced OOP\\HomeAssignment1-1\\ImageEditor\\ImageEditor.csproj",
         "projectName": "ImageEditor",
-        "projectPath": "C:\\Users\\gabij\\OneDrive\\Documents\\Advanced OOP\\HomeAssignment1\\ImageEditor\\ImageEditor.csproj",
-        "packagesPath": "C:\\Users\\gabij\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gabij\\OneDrive\\Documents\\Advanced OOP\\HomeAssignment1\\ImageEditor\\obj\\",
+        "projectPath": "C:\\Users\\emmaj\\Documents\\SDU\\Semester 2\\Advanced OOP\\HomeAssignment1-1\\ImageEditor\\ImageEditor.csproj",
+        "packagesPath": "C:\\Users\\emmaj\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\emmaj\\Documents\\SDU\\Semester 2\\Advanced OOP\\HomeAssignment1-1\\ImageEditor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gabij\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\emmaj\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"

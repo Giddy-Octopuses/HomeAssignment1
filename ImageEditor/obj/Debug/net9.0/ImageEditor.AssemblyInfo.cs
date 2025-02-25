@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImageEditor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1965f2c059d44865d022d7b27c4da00b258ad045")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5e8cd61148eae949a770de6030b726bbf7fd3b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImageEditor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImageEditor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

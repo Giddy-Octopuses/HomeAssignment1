@@ -3,18 +3,31 @@
         xmlns:vm="using:ImageEditor.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+        Width = "400" Height = "800"
         x:Class="ImageEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="ImageEditor">
+    <StackPanel>
+                <Border
+                        Margin="10"
+                        Background="White">
+                        
+                        <TextBlock TextAlignment="Left" Margin="10" FontSize="20">Name of the file</TextBlock>
+                </Border>
+                <Grid ColumnDefinitions="Auto Auto Auto" RowDefinitions="Auto Auto Auto Auto Auto" >
+                        <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center">                  
+                        <TextBox x:Name="FileName" Text="Name of the file" Width="340"/>
+                        <TextBox x:Name="TextBox1"  Text="load" Grid.Column="0" Width="150"/>
+                        <TextBox x:Name="TextBox2"  Text="save" Grid.Column="1" Width="150"/>            
+                </Grid>
+    </StackPanel>    
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 </Window>
