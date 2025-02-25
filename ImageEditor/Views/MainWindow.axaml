@@ -17,10 +17,11 @@
                         <TextBlock TextAlignment="Left" Margin="10" FontSize="20">Name of the file</TextBlock>
                 </Border>
                 <Grid ColumnDefinitions="Auto Auto Auto" RowDefinitions="Auto Auto Auto Auto Auto" >
-                        <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center">                  
-                        <TextBox x:Name="FileName" Text="Name of the file" Width="340"/>
-                        <TextBox x:Name="TextBox1"  Text="load" Grid.Column="0" Width="150"/>
-                        <TextBox x:Name="TextBox2"  Text="save" Grid.Column="1" Width="150"/>            
+                        <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center"/>     
+
+                        <TextBox Grid.Row="2" x:Name="FileName" Text="Name of the file" Width="340"/>
+                        <Button Grid.Row="3" Grid.Column="0" Width="150">load</Button>
+                        <Button Grid.Row="3" Grid.Column="1" Width="150">save</Button>          
                 </Grid>
     </StackPanel>    
 
