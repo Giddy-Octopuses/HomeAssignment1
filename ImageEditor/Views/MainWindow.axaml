@@ -11,10 +11,11 @@
         Title="ImageEditor">
         <Border Padding="10">
         <StackPanel>
+
                         <Grid RowDefinitions="Auto Auto Auto Auto" >
                                 <TextBlock Grid.Row="0" Text="size:" HorizontalAlignment="Center" VerticalAlignment="Center"/>     
 
-                                <TextBox Grid.Row="2" x:Name="FileName" Text="Name of the file" Margin="10" Width="300"/>
+                                <TextBox Grid.Row="2" x:Name="FileName" Text="{Binding filename}" Margin="10" Width="300"/>
                                 <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" >
                                         <Button Grid.Column="0" Margin="10">load</Button>
                                         <Button Grid.Column="1" Margin="10">save</Button> 
