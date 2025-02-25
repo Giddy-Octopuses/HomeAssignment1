@@ -8,6 +8,8 @@ public class Image
 
     public List<int>? Pixel { get; set; } = null;
 
+    public string? FileName { get; set; } = "image.txt";
+
     public Image(string size, string pixelData)
     {
         // Parse width and length from the size string
