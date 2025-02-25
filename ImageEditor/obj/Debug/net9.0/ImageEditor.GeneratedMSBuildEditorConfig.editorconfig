@@ -15,14 +15,14 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ImageEditor
-build_property.ProjectDir = C:\Users\gabij\OneDrive\Documents\Advanced OOP\HomeAssignment1\ImageEditor\
+build_property.ProjectDir = C:\Users\emmaj\Documents\SDU\Semester 2\Advanced OOP\HomeAssignment1-1\ImageEditor\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/gabij/OneDrive/Documents/Advanced OOP/HomeAssignment1/ImageEditor/App.axaml]
+[C:/Users/emmaj/Documents/SDU/Semester 2/Advanced OOP/HomeAssignment1-1/ImageEditor/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/gabij/OneDrive/Documents/Advanced OOP/HomeAssignment1/ImageEditor/Views/MainWindow.axaml]
+[C:/Users/emmaj/Documents/SDU/Semester 2/Advanced OOP/HomeAssignment1-1/ImageEditor/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
