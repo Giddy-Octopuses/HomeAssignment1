@@ -4,12 +4,11 @@ using System.IO;
 using System.Windows.Input;
 using System.Linq;
 
-
 namespace ImageEditor.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public ImageViewModel Image { get; set; }
+    public ImageViewModel Image { get; private set; }
 
     private string _title = "ImageEditor";
     public string Title
@@ -17,84 +16,120 @@ public partial class MainWindowViewModel : ViewModelBase
         get => _title;
         set => SetProperty(ref _title, value);
     }
-    private string _fileName = "default_name";
 
+    private string _fileName = "image"; // Default file name
     public string FileName
     {
         get => _fileName;
-        set => SetProperty(ref _fileName, value);
+        set
+        {
+            if (SetProperty(ref _fileName, value))
+            {
+                LoadImageData(); // Load pixels when FileName changes
+            }
+        }
     }
 
     private bool _isEdited = false;
-
     public ICommand SaveCommand { get; }
 
     public MainWindowViewModel()
-{
-    try
     {
-        // Load the last saved file name
-        if (File.Exists("../last_filename.txt"))
+        try
         {
-            FileName = File.ReadAllText("../last_filename.txt");
+            // Load last used file name if it exists
+            if (File.Exists("../last_filename.txt"))
+            {
+                FileName = File.ReadAllText("../last_filename.txt").Trim();
+            }
+
+            LoadImageData();
         }
-        else
+        catch (Exception ex)
         {
-            FileName = "default_name";
+            Console.WriteLine($"Error initializing: {ex.Message}");
         }
 
-        string[] lines = File.ReadAllLines("../image.txt");
-        Image = new ImageViewModel(lines[0], lines[1], this);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error reading file: {ex.Message}");
+        SaveCommand = new RelayCommand(SaveFile);
     }
 
-    SaveCommand = new RelayCommand(SaveFile);
-}
+    private void LoadImageData()
+    {
+        try
+        {
+            string filePath = $"../{FileName}.txt";
 
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                if (lines.Length >= 2)
+                {
+                    Image = new ImageViewModel(lines[0], lines[1], this);
+                }
+                else
+                {
+                    Console.WriteLine($"File {filePath} is incomplete. Using default values.");
+                    CreateDefaultFile(filePath);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"File {filePath} does not exist. Creating a new file.");
+                CreateDefaultFile(filePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading image: {ex.Message}");
+        }
+    }
+
+    private void CreateDefaultFile(string filePath)
+    {
+        string defaultSize = "6 7"; // 6 rows, 7 columns
+        string defaultPixels = "010001000000000000000000000010000010111110";
+
+        File.WriteAllLines(filePath, new[] { defaultSize, defaultPixels });
+
+        Image = new ImageViewModel(defaultSize, defaultPixels, this);
+    }
 
     public void MarkAsEdited()
     {
         if (!_isEdited)
         {
-            Title += "*"; // Append * to indicate unsaved changes
+            Title += "*"; // Mark changes
             _isEdited = true;
         }
     }
 
-private void SaveFile()
-{
-    if (Image == null) return;
-
-    try
+    private void SaveFile()
     {
-        if (string.IsNullOrWhiteSpace(FileName))
+        if (Image == null) return;
+
+        try
         {
-            FileName = "default_name"; 
+            if (string.IsNullOrWhiteSpace(FileName))
+            {
+                FileName = "image";
+            }
+
+            string filePath = $"../{FileName}.txt";
+            string size = $"{Image.Width} {Image.Height}";
+            string pixelData = string.Join("", Image.Pixels.Select(p => p.Value.ToString()));
+
+            // Save image data
+            File.WriteAllLines(filePath, new[] { size, pixelData });
+
+            // Save last used filename
+            File.WriteAllText("../last_filename.txt", FileName);
+
+            Title = "ImageEditor";
+            _isEdited = false;
         }
-
-        string filePath = $"../{FileName}.txt";
-        string size = $"{Image.Width} {Image.Height}";
-        string pixelData = string.Join("", Image.Pixels.Select(p => p.Value.ToString()));
-
-        // Save image data
-        File.WriteAllLines(filePath, new[] { size, pixelData });
-
-        // Save the file name to a settings file
-        File.WriteAllText("../last_filename.txt", FileName);
-
-        Title = "ImageEditor"; 
-        _isEdited = false;
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving file: {ex.Message}");
+        }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error saving file: {ex.Message}");
-    }
-}
-
-
-
-
 }

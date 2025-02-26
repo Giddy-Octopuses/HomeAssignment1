@@ -11,25 +11,40 @@ public class ImageViewModel : ObservableObject
     public int Height { get; set; } = 0;
     public int Width { get; set; } = 0;
 
-    public List<PixelViewModel> Pixels { get; set;} = new();
+    public List<PixelViewModel> Pixels { get; set; } = new();
 
-    public string? FileName { get; set; } = "image.txt";
+    private string? _fileName = "image.txt";  // Private field to store file name
+
+    public string FileName
+    {
+        get => _fileName ?? "image.txt";  // Ensure a single file name is used
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                _fileName = value;
+            }
+        }
+    }
 
     private MainWindowViewModel _mainViewModel;  // Store reference
 
     public ImageViewModel(string size, string pixelData, MainWindowViewModel mainViewModel)
-{
+    {
         _mainViewModel = mainViewModel; // Assign MainWindowViewModel instance
 
+        // Parse width and height
         var dimensions = size.Split(' ');
-        if (int.TryParse(dimensions[1], out int height) && int.TryParse(dimensions[0], out int width))
+        if (dimensions.Length == 2 &&
+            int.TryParse(dimensions[0], out int width) &&
+            int.TryParse(dimensions[1], out int height))
         {
             Height = height;
             Width = width;
         }
         else
         {
-            throw new ArgumentException("Invalid size format. Expected format: \"width length\"");
+            throw new ArgumentException("Invalid size format. Expected format: \"width height\"");
         }
 
         foreach (char c in pixelData)
