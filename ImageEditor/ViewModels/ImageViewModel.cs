@@ -15,9 +15,12 @@ public class ImageViewModel : ObservableObject
 
     public string? FileName { get; set; } = "image.txt";
 
-    public ImageViewModel(string size, string pixelData)
-    {
-        // Parse width and length from the size string
+    private MainWindowViewModel _mainViewModel;  // Store reference
+
+    public ImageViewModel(string size, string pixelData, MainWindowViewModel mainViewModel)
+{
+        _mainViewModel = mainViewModel; // Assign MainWindowViewModel instance
+
         var dimensions = size.Split(' ');
         if (int.TryParse(dimensions[1], out int height) && int.TryParse(dimensions[0], out int width))
         {
@@ -31,7 +34,7 @@ public class ImageViewModel : ObservableObject
 
         foreach (char c in pixelData)
         {
-            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
+            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0, _mainViewModel)); // Pass _mainViewModel
         }
     }
 }
