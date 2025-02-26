@@ -9,11 +9,13 @@ namespace ImageEditor.Views;
 
 public partial class MainWindow : Window
 {
+    public string? FileNameText;
     public MainWindow()
     {
         InitializeComponent();
     }
 
+    // This happens when you click 'load'
     public void ClickHandler(object sender, RoutedEventArgs args)
     {
         try
@@ -22,7 +24,11 @@ public partial class MainWindow : Window
             // Get the ViewModel from DataContext
             if (DataContext is MainWindowViewModel viewModel)
             {
-                viewModel.Image = new ImageViewModel(lines[0], lines[1]); // Update the existing ImageViewModel
+                viewModel.Image = new ImageViewModel(lines[0], lines[1]) // Update the existing ImageViewModel
+                {
+                    FileNameText = "image.txt"
+                };
+                message.Text = "The .txt file is now loaded!";
             }
             else
             {

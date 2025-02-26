@@ -15,11 +15,18 @@ public class ImageViewModel : ObservableObject
     public List<PixelViewModel> Pixels { get; set;} = new();
 
     public string? FileName { get; set; } = "image.txt";
-    public string SizeText => $"size: {Height}x{Width}";
+    public string SizeText => $"size: {Height}x{Width}"; 
+    private string? _fileNameText;
+    public string? FileNameText
+    {
+        get => _fileNameText;
+        set => SetProperty(ref _fileNameText, value);
+    }
 
     
     public ImageViewModel()
     {
+        // Stand in image before loading
         Console.WriteLine("Without parameters");
         for (int i = 0; i < Height * Width; i++)
         {
@@ -30,9 +37,9 @@ public class ImageViewModel : ObservableObject
     public ImageViewModel(string size, string pixelData)
     {
         Console.WriteLine("With parameters");
-        // Parse width and length from the size string
+        // Parse height and width from the size string
         var dimensions = size.Split(' ');
-        if (int.TryParse(dimensions[1], out int height) && int.TryParse(dimensions[0], out int width))
+        if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
         {
             Height = height;
             Width = width;
@@ -40,7 +47,7 @@ public class ImageViewModel : ObservableObject
         }
         else
         {
-            throw new ArgumentException("Invalid size format. Expected format: \"width length\"");
+            throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
         }
 
         foreach (char c in pixelData)

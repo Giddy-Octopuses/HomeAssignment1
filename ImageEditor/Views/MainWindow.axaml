@@ -22,7 +22,7 @@
 
                                                 <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
-                                                        <UniformGrid Columns="{Binding Image.Height}" Rows="{Binding Image.Width}" />
+                                                        <UniformGrid Rows="{Binding Image.Height}" Columns="{Binding Image.Width}" />
                                                         </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
 
@@ -37,7 +37,7 @@
                                                 </ItemsControl.ItemTemplate>
                                         </ItemsControl>
                                 </Grid>
-                                <TextBox Grid.Row="2" x:Name="FileName" Watermark="Name of the file" Margin="10" Width="300"/>
+                                <TextBox Grid.Row="2" x:Name="FileName" Watermark="Name of the file" Text="{Binding Image.FileNameText}" Margin="10" Width="300"/>
 
                                 <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" >
                                         <Button Grid.Column="0" Margin="10" Click="ClickHandler">load</Button>
