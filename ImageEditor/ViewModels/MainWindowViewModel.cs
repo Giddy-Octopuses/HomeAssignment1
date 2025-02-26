@@ -9,6 +9,8 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
+        // this shouldn't actually be here, I just left it here bc the axaml is connected to this class,
+        // so if I delete it, the pixels won't be displayed
         try
         {
             string[] lines = File.ReadAllLines("../image.txt");
