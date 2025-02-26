@@ -17,8 +17,7 @@ public class ImageViewModel : ObservableObject
     public string? FileName { get; set; } = "image.txt";
     public string SizeText => $"size: {Height}x{Width}";
 
-    // I changed this part, bc I want to display a stand in picture before clicking 'load'
-    // but then I'm not really sure how to change the picture afterwards.. - tried doing it in the ClickHandler method but it doesn't work as intended
+    
     public ImageViewModel()
     {
         Console.WriteLine("Without parameters");
@@ -27,7 +26,7 @@ public class ImageViewModel : ObservableObject
             Pixels.Add(new PixelViewModel(1));
         }
     } 
-    // this was the original code: if we would display the correct picture automatically
+
     public ImageViewModel(string size, string pixelData)
     {
         Console.WriteLine("With parameters");
