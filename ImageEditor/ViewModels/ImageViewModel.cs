@@ -9,8 +9,8 @@ namespace ImageEditor.ViewModels;
 
 public class ImageViewModel : ObservableObject
 {
-    public int Height { get; set; } = 0;
-    public int Width { get; set; } = 0;
+    public int Height { get; set; } = 6;
+    public int Width { get; set; } = 7;
 
     public List<PixelViewModel> Pixels { get; set;} = new();
 
@@ -19,19 +19,18 @@ public class ImageViewModel : ObservableObject
 
     // I changed this part, bc I want to display a stand in picture before clicking 'load'
     // but then I'm not really sure how to change the picture afterwards.. - tried doing it in the ClickHandler method but it doesn't work as intended
-    public ImageViewModel(string size, string pixelData)
+    public ImageViewModel()
     {
-        Height = 6;
-        Width = 7;
-
-        foreach (char c in pixelData)
+        Console.WriteLine("Without parameters");
+        for (int i = 0; i < Height * Width; i++)
         {
             Pixels.Add(new PixelViewModel(1));
         }
     } 
     // this was the original code: if we would display the correct picture automatically
-    /* public ImageViewModel(string size, string pixelData)
+    public ImageViewModel(string size, string pixelData)
     {
+        Console.WriteLine("With parameters");
         // Parse width and length from the size string
         var dimensions = size.Split(' ');
         if (int.TryParse(dimensions[1], out int height) && int.TryParse(dimensions[0], out int width))
@@ -49,5 +48,5 @@ public class ImageViewModel : ObservableObject
         {
             Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
         }
-    } */
+    }
 }

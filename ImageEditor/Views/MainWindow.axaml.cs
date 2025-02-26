@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using ImageEditor.ViewModels;
+using ImageEditor;
 using Avalonia.Interactivity;
 using System.IO;
 using System;
@@ -15,42 +16,27 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    public ImageViewModel Image { get; set; }
-    public List<PixelViewModel> Pixels { get; set;} //= new();
-
-    // when you click the 'load' button:
     public void ClickHandler(object sender, RoutedEventArgs args)
-    {
-        try
         {
-            string[] lines = File.ReadAllLines("../image.txt");
-
-            Image = new ImageViewModel(lines[0], lines[1]); // ideally we shouldn't create a new image, just change the other one (?)
+            try
             {
-                // Parse width and length from the size string
-                var dimensions = lines[0].Split(' ');
-                if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
+                string[] lines = File.ReadAllLines("../image.txt");
+                // Get the ViewModel from DataContext
+                if (DataContext is MainWindowViewModel viewModel)
                 {
-                    Height = height;
-                    Width = width;
-                    //Pixels.Clear(); // delete the stand in image
-                    message.Text = "The .txt file is now loaded!";
+                    viewModel.Image = new ImageViewModel(lines[0], lines[1]); // Update the existing ImageViewModel
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
+                    Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
                 }
-
-                foreach (char c in lines[1])
-                {
-                    Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
-                }
+                // MainWindowViewModel.Image = new ImageViewModel(lines[0], lines[1]); // ideally we shouldn't create a new image, just change the other one (?)
+                
+            }    
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading file: {ex.Message}");
             }
-
-        }    
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error reading file: {ex.Message}");
         }
-    }
+    
 }

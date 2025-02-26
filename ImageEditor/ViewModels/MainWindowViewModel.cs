@@ -1,26 +1,36 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System;
+using System.ComponentModel;
 
 namespace ImageEditor.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 {
-    public ImageViewModel Image { get; set; }
+    private ImageViewModel _image;
+        public ImageViewModel Image
+        {
+            get => _image;
+            set
+            {
+                _image = value;
+                OnPropertyChanged(nameof(Image)); // Notify UI of the change
+            }
+        }
+
 
     public MainWindowViewModel()
     {
         // this shouldn't actually be here, I just left it here bc the axaml is connected to this class,
         // so if I delete it, the pixels won't be displayed
-        try
-        {
-            string[] lines = File.ReadAllLines("../image.txt");
-
-            Image = new ImageViewModel(lines[0], lines[1]);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error reading file: {ex.Message}");
-        }
+        Image = new ImageViewModel();
+        
     }
+
+     public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     
 }
