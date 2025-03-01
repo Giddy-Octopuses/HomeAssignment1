@@ -22,7 +22,6 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
     public ImageViewModel()
     {
         Pixels = new ObservableCollection<PixelViewModel>();
-        Console.WriteLine("Default constructor called.");
 
         for (int i = 0; i < Height * Width; i++)
         {
@@ -33,7 +32,6 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
     public void update(string size, string pixelData, string? fileName = null)
     {
         Pixels = new ObservableCollection<PixelViewModel>();
-        Console.WriteLine("With parameters");
 
         var dimensions = size.Split(' ');
         if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
