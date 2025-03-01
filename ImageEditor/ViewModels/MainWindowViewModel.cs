@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace ImageEditor.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
+public partial class MainWindowViewModel : ViewModelBase
 {
 
     private ImageViewModel _image;

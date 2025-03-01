@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,9 +12,9 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
     public int Height { get; set; } = 6;
     public int Width { get; set; } = 7;
 
-    public List<PixelViewModel> Pixels { get; set; } = new();
+    public ObservableCollection<PixelViewModel> Pixels { get; set; } = new();
 
-    public string SizeText => $"size: {Height}x{Width}"; 
+    public string SizeText => $"size: {Height}x{Width}";
     private string? _fileNameText;
     public string? FileNameText
     {
@@ -21,58 +22,80 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
         set => SetProperty(ref _fileNameText, value);
     }
 
-    
-    public ImageViewModel()
+public ImageViewModel() 
+{
+    Pixels = new ObservableCollection<PixelViewModel>();
+    Console.WriteLine("Default constructor called.");
+
+    for (int i = 0; i < Height * Width; i++)
     {
-        // Stand in image before loading
-        Console.WriteLine("Without parameters");
-        for (int i = 0; i < Height * Width; i++)
-        {
-            Pixels.Add(new PixelViewModel(1));
-        }
-    } 
+        Pixels.Add(new PixelViewModel(1)); // Default to all white pixels
+    }
+}
 
     public ImageViewModel(string size, string pixelData)
-    {
-        Console.WriteLine("With parameters");
-        // Parse height and width from the size string
-        var dimensions = size.Split(' ');
-        if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
-        {
-            Height = height;
-            Width = width;
-            Pixels.Clear(); // delete the stand in image
-        }
-        else
-        {
-            throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
-        }
+{
+    Pixels = new ObservableCollection<PixelViewModel>();
+    Console.WriteLine("With parameters");
 
-        foreach (char c in pixelData)
-        {
-            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0)); 
-        }
+    var dimensions = size.Split(' ');
+    if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
+    {
+        Height = height;
+        Width = width;
+    }
+    else
+    {
+        throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
     }
 
+    Pixels.Clear();
+    foreach (char c in pixelData)
+    {
+        Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
+    }
+
+    OnPropertyChanged(nameof(Pixels));
+}
+
+
+
     public event PropertyChangedEventHandler PropertyChanged;
-    protected virtual void OnPropertyChanged(string propertyName)
+    public virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     public void VFlip()
     {
-        Pixels = Pixels
-            .Select((pixel, index) => Pixels[(Height - 1 - index / Width) * Width + index % Width])
-            .ToList();
-        OnPropertyChanged(nameof(Pixels));
+        var flippedPixels = new ObservableCollection<PixelViewModel>();
+
+        for (int row = Height - 1; row >= 0; row--)
+        {
+            for (int col = 0; col < Width; col++)
+            {
+                flippedPixels.Add(new PixelViewModel(Pixels[row * Width + col].Value));
+            }
+        }
+
+        Pixels = flippedPixels;
+        OnPropertyChanged(nameof(Pixels)); // Update UI
     }
 
     public void HFlip()
     {
-        Pixels = Pixels
-            .Select((pixel, index) => Pixels[index / Width * Width + Width - 1 - index % Width])
-            .ToList();
-        OnPropertyChanged(nameof(Pixels));
+        var flippedPixels = new ObservableCollection<PixelViewModel>();
+
+        for (int row = 0; row < Height; row++)
+        {
+            for (int col = Width - 1; col >= 0; col--)
+            {
+                flippedPixels.Add(new PixelViewModel(Pixels[row * Width + col].Value));
+            }
+        }
+
+        Pixels = flippedPixels;
+        OnPropertyChanged(nameof(Pixels)); // Update UI
     }
+
 }

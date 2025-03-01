@@ -6,7 +6,7 @@ using Avalonia.Media; // Needed for Color conversion
 
 namespace ImageEditor.ViewModels;
 
-public class PixelViewModel : ObservableObject, INotifyPropertyChanged
+public class PixelViewModel : ObservableObject
 {
     private int _value;
 
