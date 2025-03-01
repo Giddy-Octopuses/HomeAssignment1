@@ -19,16 +19,18 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
         set => SetProperty(ref _fileNameText, value);
     }
 
+    // Default to all black pixels
     public ImageViewModel()
     {
         Pixels = new ObservableCollection<PixelViewModel>();
 
         for (int i = 0; i < Height * Width; i++)
         {
-            Pixels.Add(new PixelViewModel(1)); // Default to all white pixels
+            Pixels.Add(new PixelViewModel(1));
         }
     }
 
+    // Loading the image based on the txt file
     public void update(string size, string pixelData, string? fileName = null)
     {
         Pixels = new ObservableCollection<PixelViewModel>();
@@ -59,6 +61,7 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
+    // Flipping the image vertically 
     public void VFlip()
     {
         var flippedPixels = new ObservableCollection<PixelViewModel>();
@@ -75,6 +78,7 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
         OnPropertyChanged(nameof(Pixels)); // Update UI
     }
 
+    // Flipping the image horizontally
     public void HFlip()
     {
         var flippedPixels = new ObservableCollection<PixelViewModel>();
@@ -90,5 +94,4 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
         Pixels = flippedPixels;
         OnPropertyChanged(nameof(Pixels)); // Update UI
     }
-
 }

@@ -5,7 +5,6 @@ using System.IO;
 using System;
 using System.Linq;
 
-
 namespace ImageEditor.Views;
 
 public partial class MainWindow : Window
@@ -38,8 +37,6 @@ public partial class MainWindow : Window
             {
                 Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
             }
-
-
         }
         catch (Exception ex)
         {
@@ -47,7 +44,7 @@ public partial class MainWindow : Window
         }
     }
 
-
+    // This happens when you click 'save'
     public void SaveHandler(object sender, RoutedEventArgs args)
     {
         try
@@ -61,7 +58,7 @@ public partial class MainWindow : Window
                         viewModel.Image.FileNameText = "image";
                     }
 
-                    string filePath = $"../Images/{viewModel.Image.FileNameText}.txt";
+                    string filePath = $"../Images/{viewModel.Image.FileNameText}.txt"; // Folder for all images created
                     string size = $"{viewModel.Image.Height} {viewModel.Image.Width}";
                     string pixelData = string.Join("", viewModel.Image.Pixels.Select(Value => Value.Value.ToString()));
 
@@ -87,11 +84,11 @@ public partial class MainWindow : Window
         }
     }
 
+    // Vertical flip button
     public void VFlipHandler(object sender, RoutedEventArgs args)
     {
         try
         {
-            // Flip the content of Image.Pixels vertically
             if (DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.Image.VFlip();
@@ -109,12 +106,12 @@ public partial class MainWindow : Window
             Console.WriteLine($"Error flipping Image: {ex.Message}");
         }
     }
-
+ 
+    // Horizontal flip button
     public void HFlipHandler(object sender, RoutedEventArgs args)
     {
         try
         {
-            // Flip the content of Image.Pixels horizontally
             if (DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.Image.HFlip();

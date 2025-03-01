@@ -24,11 +24,12 @@ public partial class MainWindowViewModel : ViewModelBase
         set
         {
             SetProperty(ref _fileName, value);
-            Image.FileNameText = value;
-            IsEdited = true;
+            Image.FileNameText = value; // This will be shown in the UI
+            IsEdited = true; // For the *
         }
     }
 
+    // Size of the image based on how many pixels it contains
     public int GridHeight => (Image?.Height ?? 0) * 40 + 4;
     public int GridWidth => (Image?.Width ?? 0) * 40 + 4;
 
@@ -52,8 +53,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     private bool _isEdited = false;
-
-    public bool IsEdited
+    public bool IsEdited // variable to determine whether the image was changed without saving
     {
         get => _isEdited;
         set
