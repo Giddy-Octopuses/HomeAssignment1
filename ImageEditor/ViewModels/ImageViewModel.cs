@@ -12,9 +12,8 @@ public class ImageViewModel : ObservableObject
     public int Height { get; set; } = 6;
     public int Width { get; set; } = 7;
 
-    public List<PixelViewModel> Pixels { get; set;} = new();
+    public List<PixelViewModel> Pixels { get; set; } = new();
 
-    public string? FileName { get; set; } = "image.txt";
     public string SizeText => $"size: {Height}x{Width}"; 
     private string? _fileNameText;
     public string? FileNameText
@@ -52,7 +51,7 @@ public class ImageViewModel : ObservableObject
 
         foreach (char c in pixelData)
         {
-            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
+            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0, _mainViewModel)); // Pass _mainViewModel
         }
     }
 }

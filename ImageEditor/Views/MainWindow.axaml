@@ -1,17 +1,18 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ImageEditor.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="800"
-        Width = "500" Height = "800"
         x:Class="ImageEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        x:CompileBindings="True"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="ImageEditor">
-        <Border Padding="10">
+        Title="{Binding Title}"
+        Width="500" Height="800"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <Border Padding="10">
         <StackPanel>
+            <Grid RowDefinitions="Auto Auto Auto Auto">
+                <TextBlock Grid.Row="0" Text="size: 6x7" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>               
 
                         <Grid RowDefinitions="Auto Auto Auto Auto Auto" >
 
@@ -37,21 +38,15 @@
                                                 </ItemsControl.ItemTemplate>
                                         </ItemsControl>
                                 </Grid>
-                                <TextBox Grid.Row="2" x:Name="FileName" Watermark="Name of the file" Text="{Binding Image.FileNameText}" Margin="10" Width="300"/>
+                                <TextBox Grid.Row="2" x:Name="FileName" Watermark="Enter file name..." Text="{Binding Image.FileNameText}" Margin="10" Width="300"/>
 
                                 <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" >
                                         <Button Grid.Column="0" Margin="10" Click="ClickHandler">load</Button>
-                                        <Button Grid.Column="1" Margin="10">save</Button> 
+                                        <Button Grid.Column="1" Margin="10" Command="{Binding SaveCommand}">save</Button> 
                                 </Grid>
                                 
                                 <TextBlock Grid.Row = "4" Margin="0 10" x:Name="message">Click the 'load' button for the image...</TextBlock>
                         </Grid>
         </StackPanel>    
-        </Border>
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
+    </Border>
 </Window>
