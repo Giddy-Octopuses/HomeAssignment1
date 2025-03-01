@@ -21,7 +21,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string FileName
     {
         get => _fileName;
-        set 
+        set
         {
             SetProperty(ref _fileName, value);
             Image.FileNameText = value;
@@ -39,7 +39,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
-    public virtual void OnPropertyChanged(string propertyName)
+    protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

@@ -1,11 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ImageEditor.ViewModels;
 
-public class ImageViewModel : ObservableObject, INotifyPropertyChanged
+public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
 {
     public int Height { get; set; } = 6;
     public int Width { get; set; } = 7;
