@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -94,16 +92,6 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
 
         Pixels = flippedPixels;
         OnPropertyChanged(nameof(Pixels)); // Update UI
-    }
-    private bool _isEdited;
-    public bool IsEdited
-    {
-        get => _isEdited;
-        set
-        {
-            SetProperty(ref _isEdited, value);
-            OnPropertyChanged(nameof(IsEdited)); // Update title
-        }
     }
 
 }
