@@ -35,7 +35,7 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     }
 
 
-}
+
     
     private string _title = "ImageEditor";
     public string Title
@@ -62,12 +62,12 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 
         try
         {
-            if (string.IsNullOrWhiteSpace(FileName))
+            if (string.IsNullOrWhiteSpace(Image.FileNameText))
             {
-                FileName = "image";
+                Image.FileNameText = "image";
             }
 
-            string filePath = $"../{FileName}.txt";
+            string filePath = $"../{Image.FileNameText}.txt";
             string size = $"{Image.Width} {Image.Height}";
             string pixelData = string.Join("", Image.Pixels.Select(p => p.Value.ToString()));
 
@@ -75,7 +75,7 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             File.WriteAllLines(filePath, new[] { size, pixelData });
 
             // Save last used filename
-            File.WriteAllText("../last_filename.txt", FileName);
+            File.WriteAllText("../last_filename.txt", Image.FileNameText);
 
             Title = "ImageEditor";
             _isEdited = false;

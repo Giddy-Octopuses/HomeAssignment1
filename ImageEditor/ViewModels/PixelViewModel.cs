@@ -6,36 +6,33 @@ using Avalonia.Media; // Needed for Color conversion
 
 namespace ImageEditor.ViewModels;
 
-    public class PixelViewModel : ObservableObject
+public class PixelViewModel : ObservableObject
+{
+    private int _value;
+
+    public int Value
     {
-        private int _value;
-    private MainWindowViewModel _mainViewModel;
-
-        public int Value
+        get => _value;
+        set
         {
-            get => _value;
-            set
-            {
             SetProperty(ref _value, value);
-                    OnPropertyChanged(nameof(Color)); // Notify UI about color change
-            }
+            OnPropertyChanged(nameof(Color)); // Notify UI about color change
         }
+    }
 
-        // Convert 1 to Black and 0 to White
-        public IBrush Color => Value == 1 ? Brushes.Black : Brushes.White;
+    // Convert 1 to Black and 0 to White
+    public IBrush Color => Value == 1 ? Brushes.Black : Brushes.White;
 
-        public ICommand ToggleCommand { get; }
+    public ICommand ToggleCommand { get; }
 
-        public PixelViewModel(int value, MainWindowViewModel mainViewModel)
-        {
-            _value = value;
-        _mainViewModel = mainViewModel;
-            ToggleCommand = new RelayCommand(Toggle);
-        }
+    public PixelViewModel(int value)
+    {
+        _value = value;
+        ToggleCommand = new RelayCommand(Toggle);
+    }
 
-        private void Toggle()
-        {
-            Value = Value == 1 ? 0 : 1; // Toggle between 1 and 0
-        _mainViewModel.MarkAsEdited(); // Mark file as edited
+    private void Toggle()
+    {
+        Value = Value == 1 ? 0 : 1; // Toggle between 1 and 0
     }
 }

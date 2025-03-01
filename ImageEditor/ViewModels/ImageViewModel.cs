@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Avalonia;
 
@@ -51,7 +53,7 @@ public class ImageViewModel : ObservableObject
 
         foreach (char c in pixelData)
         {
-            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0, _mainViewModel)); // Pass _mainViewModel
+            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0)); 
         }
     }
 }
