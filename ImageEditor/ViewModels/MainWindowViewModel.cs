@@ -17,6 +17,18 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private string _fileName;
+    public string FileName
+    {
+        get => _fileName;
+        set
+        {
+            SetProperty(ref _fileName, value);
+            Image.FileNameText = value;
+            IsEdited = true;
+        }
+    }
+
     public int GridHeight => (Image?.Height ?? 0) * 40 + 4;
     public int GridWidth => (Image?.Width ?? 0) * 40 + 4;
 
@@ -27,7 +39,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
-    public virtual void OnPropertyChanged(string propertyName)
+    protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

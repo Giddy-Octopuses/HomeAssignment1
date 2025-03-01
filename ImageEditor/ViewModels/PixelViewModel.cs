@@ -1,12 +1,10 @@
-using System;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Avalonia.Media; // Needed for Color conversion
 
 namespace ImageEditor.ViewModels;
 
-public class PixelViewModel : ObservableObject
+public class PixelViewModel : ViewModelBase
 {
     private int _value;
 
@@ -14,13 +12,13 @@ public class PixelViewModel : ObservableObject
     {
         get => _value;
         set
-{
-    if (SetProperty(ref _value, value))
-    {
-        OnPropertyChanged(nameof(Color)); // Update color
-        MainWindowViewModel.Instance.IsEdited = true; // Mark as edited
-    }
-}
+        {
+            if (SetProperty(ref _value, value))
+            {
+                OnPropertyChanged(nameof(Color)); // Update color
+                MainWindowViewModel.Instance.IsEdited = true; // Mark as edited
+            }
+        }
 
     }
 

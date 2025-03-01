@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.ComponentModel;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ImageEditor.ViewModels;
 
-public class ImageViewModel : ObservableObject, INotifyPropertyChanged
+public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
 {
     public int Height { get; set; } = 6;
     public int Width { get; set; } = 7;
@@ -94,16 +91,6 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
 
         Pixels = flippedPixels;
         OnPropertyChanged(nameof(Pixels)); // Update UI
-    }
-    private bool _isEdited;
-    public bool IsEdited
-    {
-        get => _isEdited;
-        set
-        {
-            SetProperty(ref _isEdited, value);
-            OnPropertyChanged(nameof(IsEdited)); // Update title
-        }
     }
 
 }
