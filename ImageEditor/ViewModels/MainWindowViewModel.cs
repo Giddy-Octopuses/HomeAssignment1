@@ -1,9 +1,4 @@
 using System.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
-using System.IO;
-using System.Windows.Input;
-using System.Linq;
 
 namespace ImageEditor.ViewModels;
 

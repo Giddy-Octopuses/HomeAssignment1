@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Avalonia;
 
 namespace ImageEditor.ViewModels;
 
-public class ImageViewModel : ObservableObject
+public class ImageViewModel : ObservableObject, INotifyPropertyChanged
 {
     public int Height { get; set; } = 6;
     public int Width { get; set; } = 7;
@@ -55,5 +52,27 @@ public class ImageViewModel : ObservableObject
         {
             Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0)); 
         }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public void VFlip()
+    {
+        Pixels = Pixels
+            .Select((pixel, index) => Pixels[(Height - 1 - index / Width) * Width + index % Width])
+            .ToList();
+        OnPropertyChanged(nameof(Pixels));
+    }
+
+    public void HFlip()
+    {
+        Pixels = Pixels
+            .Select((pixel, index) => Pixels[index / Width * Width + Width - 1 - index % Width])
+            .ToList();
+        OnPropertyChanged(nameof(Pixels));
     }
 }

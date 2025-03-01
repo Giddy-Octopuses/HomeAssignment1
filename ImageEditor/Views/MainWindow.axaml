@@ -3,7 +3,7 @@
         xmlns:vm="using:ImageEditor.ViewModels"
         x:Class="ImageEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="{Binding Title}"
+        Title="{Binding Title, Mode=TwoWay}"
         Width="500" Height="800"
         Icon="/Assets/avalonia-logo.ico">
 
@@ -11,7 +11,7 @@
     <Border Padding="10">
         <StackPanel>     
 
-                        <Grid RowDefinitions="Auto Auto Auto Auto Auto" >
+                        <Grid RowDefinitions="Auto Auto Auto Auto Auto Auto" >
 
                                 <TextBlock Grid.Row="0" Text="{Binding Image.SizeText}" HorizontalAlignment="Center" VerticalAlignment="Center"/> 
 
@@ -21,7 +21,7 @@
                                                 BorderThickness="2"
                                                 Padding="0"
                                                 >
-                                        <ItemsControl ItemsSource="{Binding Image.Pixels}">
+                                        <ItemsControl ItemsSource="{Binding Image.Pixels, Mode=TwoWay}">
 
                                                 <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
@@ -45,11 +45,16 @@
                                 <TextBox Grid.Row="2" x:Name="FileName" Watermark="Enter file name..." Text="{Binding Image.FileNameText}" Margin="10" Width="300"/>
 
                                 <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button Grid.Column="0" Margin="10" Click="VFlipHandler">Vertical Flip</Button>
+                                        <Button Grid.Column="1" Margin="10" Click="HFlipHandler">Horizontal Flip</Button> 
+                                </Grid>
+
+                                <Grid ColumnDefinitions="Auto Auto" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Button Grid.Column="0" Margin="10" Click="LoadHandler">load</Button>
                                         <Button Grid.Column="1" Margin="10" Click="SaveHandler">save</Button> 
                                 </Grid>
                                 
-                                <TextBlock Grid.Row = "4" Margin="0 10" x:Name="message">Click the 'load' button for the image...</TextBlock>
+                                <TextBlock Grid.Row = "5" Margin="0 10" x:Name="message">Click the 'load' button for the image...</TextBlock>
                         </Grid>
                 
         </StackPanel>    

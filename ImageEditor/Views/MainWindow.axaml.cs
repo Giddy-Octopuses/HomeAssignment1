@@ -14,6 +14,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = new MainWindowViewModel();
     }
 
     // This happens when you click 'load'
@@ -83,6 +84,50 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             Console.WriteLine($"Error reading file: {ex.Message}");
+        }
+    }
+
+    public void VFlipHandler(object sender, RoutedEventArgs args)
+    {
+        try
+        {
+            // Flip the content of Image.Pixels vertically
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.Image.VFlip();
+                message.Text = "The image is now flipped vertically!";
+            }
+            else
+            {
+                Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error flipping Image: {ex.Message}");
+        }
+    }
+
+    public void HFlipHandler(object sender, RoutedEventArgs args)
+    {
+        try
+        {
+            // Flip the content of Image.Pixels horizontally
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.Image.HFlip();
+                message.Text = "The image is now flipped horizontally!";
+            }
+            else
+            {
+                Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error flipping Image: {ex.Message}");
         }
     }
 
