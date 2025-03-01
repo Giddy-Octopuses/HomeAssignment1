@@ -42,7 +42,7 @@
                                         </ItemsControl>
                                         </Border>
                                 </Grid>
-                                <TextBox Grid.Row="2" x:Name="FileName" Watermark="Enter file name..." Text="{Binding Image.FileNameText}" Margin="10" Width="300"/>
+                                <TextBox Grid.Row="2" x:Name="FileName" Watermark="Enter file name..." Text="{Binding FileName}" Margin="10" Width="300"/>
 
                                 <Grid ColumnDefinitions="Auto Auto" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Button Grid.Column="0" Margin="10" Click="VFlipHandler">Vertical Flip</Button>

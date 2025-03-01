@@ -17,6 +17,18 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private string _fileName;
+    public string FileName
+    {
+        get => _fileName;
+        set 
+        {
+            SetProperty(ref _fileName, value);
+            Image.FileNameText = value;
+            IsEdited = true;
+        }
+    }
+
     public int GridHeight => (Image?.Height ?? 0) * 40 + 4;
     public int GridWidth => (Image?.Width ?? 0) * 40 + 4;
 
