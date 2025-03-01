@@ -21,6 +21,9 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
+    public int GridHeight => (Image?.Height ?? 0) * 40 + 4;
+    public int GridWidth => (Image?.Width ?? 0) * 40 + 4;
+
 
     public MainWindowViewModel()
     {
