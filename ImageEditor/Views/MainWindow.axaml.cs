@@ -14,34 +14,48 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = new MainWindowViewModel();
     }
 
     // This happens when you click 'load'
     public void LoadHandler(object sender, RoutedEventArgs args)
+{
+    try
     {
-        try
+        string[] lines = File.ReadAllLines("../image.txt");
+
+        if (DataContext is MainWindowViewModel viewModel)
         {
-            string[] lines = File.ReadAllLines("../image.txt");
-            // Get the ViewModel from DataContext
-            if (DataContext is MainWindowViewModel viewModel)
+            viewModel.Image.Pixels.Clear(); // Clear existing pixels
+
+            var dimensions = lines[0].Split(' ');
+            if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
             {
-                viewModel.Image = new ImageViewModel(lines[0], lines[1]) // Update the existing ImageViewModel
-                {
-                    FileNameText = "image"
-                };
-                message.Text = "The .txt file is now loaded!";
-            }
-            else
-            {
-                Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
+                viewModel.Image.Height = height;
+                viewModel.Image.Width = width;
             }
 
+            foreach (char c in lines[1])
+            {
+                viewModel.Image.Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
+            }
+
+            viewModel.Image.FileNameText = "image";
+            viewModel.Image.OnPropertyChanged(nameof(viewModel.Image.Pixels));
+
+            message.Text = "The .txt file is now loaded!";
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"Error reading file: {ex.Message}");
+            Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
         }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error reading file: {ex.Message}");
+    }
+}
+
 
     public void SaveHandler(object sender, RoutedEventArgs args)
     {
@@ -83,6 +97,50 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             Console.WriteLine($"Error reading file: {ex.Message}");
+        }
+    }
+
+    public void VFlipHandler(object sender, RoutedEventArgs args)
+    {
+        try
+        {
+            // Flip the content of Image.Pixels vertically
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.Image.VFlip();
+                message.Text = "The image is now flipped vertically!";
+            }
+            else
+            {
+                Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error flipping Image: {ex.Message}");
+        }
+    }
+
+    public void HFlipHandler(object sender, RoutedEventArgs args)
+    {
+        try
+        {
+            // Flip the content of Image.Pixels horizontally
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.Image.HFlip();
+                message.Text = "The image is now flipped horizontally!";
+            }
+            else
+            {
+                Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error flipping Image: {ex.Message}");
         }
     }
 
