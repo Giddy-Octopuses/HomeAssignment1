@@ -3,48 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Avalonia;
 
 namespace ImageEditor.ViewModels;
 
 public class ImageViewModel : ObservableObject
 {
-    public int Height { get; set; } = 0;
-    public int Width { get; set; } = 0;
+    public int Height { get; set; } = 6;
+    public int Width { get; set; } = 7;
 
     public List<PixelViewModel> Pixels { get; set; } = new();
 
-    private string? _fileName = "image.txt";  // Private field to store file name
-
-    public string FileName
+    public string SizeText => $"size: {Height}x{Width}"; 
+    private string? _fileNameText;
+    public string? FileNameText
     {
-        get => _fileName ?? "image.txt";  // Ensure a single file name is used
-        set
-        {
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                _fileName = value;
-            }
-        }
+        get => _fileNameText;
+        set => SetProperty(ref _fileNameText, value);
     }
 
-    private MainWindowViewModel _mainViewModel;  // Store reference
-
-    public ImageViewModel(string size, string pixelData, MainWindowViewModel mainViewModel)
+    
+    public ImageViewModel()
     {
-        _mainViewModel = mainViewModel; // Assign MainWindowViewModel instance
+        // Stand in image before loading
+        Console.WriteLine("Without parameters");
+        for (int i = 0; i < Height * Width; i++)
+        {
+            Pixels.Add(new PixelViewModel(1));
+        }
+    } 
 
-        // Parse width and height
+    public ImageViewModel(string size, string pixelData)
+    {
+        Console.WriteLine("With parameters");
+        // Parse height and width from the size string
         var dimensions = size.Split(' ');
-        if (dimensions.Length == 2 &&
-            int.TryParse(dimensions[0], out int width) &&
-            int.TryParse(dimensions[1], out int height))
+        if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
         {
             Height = height;
             Width = width;
+            Pixels.Clear(); // delete the stand in image
         }
         else
         {
-            throw new ArgumentException("Invalid size format. Expected format: \"width height\"");
+            throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
         }
 
         foreach (char c in pixelData)
