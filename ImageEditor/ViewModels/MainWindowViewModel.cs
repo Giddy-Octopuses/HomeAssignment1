@@ -1,4 +1,6 @@
 using System.ComponentModel;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using System;
 
 namespace ImageEditor.ViewModels;
 
@@ -32,24 +34,29 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
 
-
-    
     private string _title = "ImageEditor";
     public string Title
     {
         get => _title;
-        set => SetProperty(ref _title, value);
-    }
-
-    private bool _isEdited = false;
-
-    public void MarkAsEdited()
-    {
-        if (!_isEdited)
+        set
         {
-            Title += "*"; // Mark changes
-            _isEdited = true;
+            SetProperty(ref _title, value);
+            OnPropertyChanged(nameof(Title));
         }
     }
+
+    Image.BoolEdited += (sender, newValue) =>
+        {
+            Console.WriteLine($"Bool value changed to: {newValue}");
+            if (newValue)
+            {
+                Title += "*"; // Mark changes
+            }
+            else
+            {
+                Title = Title.Replace("*", ""); // Remove mark
+            }
+    };
+    
 
 }

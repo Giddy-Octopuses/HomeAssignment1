@@ -22,6 +22,24 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
         set => SetProperty(ref _fileNameText, value);
     }
 
+
+    public event EventHandler<bool> BoolEdited;
+
+    private bool _isEdited = false;
+    private bool IsEdited
+    {
+        get => _isEdited;
+        set {
+            SetProperty(ref _isEdited, value);
+            OnEdited(value);
+        }
+    }
+
+    protected virtual void OnEdited(bool newValue)
+    {
+        BoolEdited?.Invoke(this, newValue);
+    }
+
     public ImageViewModel()
     {
         Pixels = new ObservableCollection<PixelViewModel>();
@@ -63,6 +81,8 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
     public virtual void OnPropertyChanged(string propertyName)
     {
+        if(IsEdited)
+
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
