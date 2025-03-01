@@ -51,10 +51,8 @@ public partial class MainWindow : Window
     {
         try
         {
-            // Get the ViewModel from DataContext
             if (DataContext is MainWindowViewModel viewModel)
             {
-
                 try
                 {
                     if (string.IsNullOrWhiteSpace(viewModel.Image.FileNameText))
@@ -69,20 +67,18 @@ public partial class MainWindow : Window
                     // Save image data
                     File.WriteAllLines(filePath, new[] { size, pixelData });
 
-                    //Title = "ImageEditor";
-                    //_isEdited = false;
+                    viewModel.IsEdited = false; // Remove the star after saving
+                    message.Text = "The .txt file is now saved!";
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error saving file: {ex.Message}");
                 }
-                message.Text = "The .txt file is now saved!";
             }
             else
             {
                 Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
             }
-
         }
         catch (Exception ex)
         {

@@ -14,10 +14,14 @@ public class PixelViewModel : ObservableObject
     {
         get => _value;
         set
-        {
-            SetProperty(ref _value, value);
-            OnPropertyChanged(nameof(Color)); // Notify UI about color change
-        }
+{
+    if (SetProperty(ref _value, value))
+    {
+        OnPropertyChanged(nameof(Color)); // Update color
+        MainWindowViewModel.Instance.IsEdited = true; // Mark as edited
+    }
+}
+
     }
 
     // Convert 1 to Black and 0 to White

@@ -58,8 +58,6 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
         FileNameText = fileName;
     }
 
-
-
     public event PropertyChangedEventHandler PropertyChanged;
     public virtual void OnPropertyChanged(string propertyName)
     {
@@ -96,6 +94,16 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
 
         Pixels = flippedPixels;
         OnPropertyChanged(nameof(Pixels)); // Update UI
+    }
+    private bool _isEdited;
+    public bool IsEdited
+    {
+        get => _isEdited;
+        set
+        {
+            SetProperty(ref _isEdited, value);
+            OnPropertyChanged(nameof(IsEdited)); // Update title
+        }
     }
 
 }

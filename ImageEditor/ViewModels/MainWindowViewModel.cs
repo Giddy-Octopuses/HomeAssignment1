@@ -4,6 +4,7 @@ namespace ImageEditor.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    public static MainWindowViewModel Instance { get; private set; }
 
     private ImageViewModel _image;
     public ImageViewModel Image
@@ -19,9 +20,9 @@ public partial class MainWindowViewModel : ViewModelBase
     public int GridHeight => (Image?.Height ?? 0) * 40 + 4;
     public int GridWidth => (Image?.Width ?? 0) * 40 + 4;
 
-
     public MainWindowViewModel()
     {
+        Instance = this;
         Image = new ImageViewModel();
     }
 
@@ -31,9 +32,6 @@ public partial class MainWindowViewModel : ViewModelBase
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-
-
-    
     private string _title = "ImageEditor";
     public string Title
     {
@@ -43,13 +41,29 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private bool _isEdited = false;
 
-    public void MarkAsEdited()
+    public bool IsEdited
     {
-        if (!_isEdited)
+        get => _isEdited;
+        set
         {
-            Title += "*"; // Mark changes
-            _isEdited = true;
+            if (_isEdited != value)
+            {
+                _isEdited = value;
+                OnPropertyChanged(nameof(IsEdited)); // Notify UI
+                UpdateWindowTitle();
+            }
         }
     }
 
+    private void UpdateWindowTitle()
+    {
+        if (_isEdited && !Title.EndsWith("*"))
+        {
+            Title += "*"; // Add star if there are unsaved changes
+        }
+        else if (!_isEdited)
+        {
+            Title = "ImageEditor"; // Reset title when saved
+        }
+    }
 }
