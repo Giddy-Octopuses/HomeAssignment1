@@ -22,41 +22,41 @@ public class ImageViewModel : ObservableObject, INotifyPropertyChanged
         set => SetProperty(ref _fileNameText, value);
     }
 
-public ImageViewModel() 
-{
-    Pixels = new ObservableCollection<PixelViewModel>();
-    Console.WriteLine("Default constructor called.");
-
-    for (int i = 0; i < Height * Width; i++)
+    public ImageViewModel()
     {
-        Pixels.Add(new PixelViewModel(1)); // Default to all white pixels
-    }
-}
+        Pixels = new ObservableCollection<PixelViewModel>();
+        Console.WriteLine("Default constructor called.");
 
-    public ImageViewModel(string size, string pixelData)
-{
-    Pixels = new ObservableCollection<PixelViewModel>();
-    Console.WriteLine("With parameters");
-
-    var dimensions = size.Split(' ');
-    if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
-    {
-        Height = height;
-        Width = width;
-    }
-    else
-    {
-        throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
+        for (int i = 0; i < Height * Width; i++)
+        {
+            Pixels.Add(new PixelViewModel(1)); // Default to all white pixels
+        }
     }
 
-    Pixels.Clear();
-    foreach (char c in pixelData)
+    public void update(string size, string pixelData, string? fileName = null)
     {
-        Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
-    }
+        Pixels = new ObservableCollection<PixelViewModel>();
+        Console.WriteLine("With parameters");
 
-    OnPropertyChanged(nameof(Pixels));
-}
+        var dimensions = size.Split(' ');
+        if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
+        {
+            Height = height;
+            Width = width;
+        }
+        else
+        {
+            throw new ArgumentException("Invalid size format. Expected format: \"height width\"");
+        }
+
+        Pixels.Clear();
+        foreach (char c in pixelData)
+        {
+            Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
+        }
+
+        FileNameText = fileName;
+    }
 
 
 

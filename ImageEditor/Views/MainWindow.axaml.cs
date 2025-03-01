@@ -19,42 +19,32 @@ public partial class MainWindow : Window
 
     // This happens when you click 'load'
     public void LoadHandler(object sender, RoutedEventArgs args)
-{
-    try
     {
-        string[] lines = File.ReadAllLines("../image.txt");
-
-        if (DataContext is MainWindowViewModel viewModel)
+        try
         {
-            viewModel.Image.Pixels.Clear(); // Clear existing pixels
+            string[] lines = File.ReadAllLines("./Assets/image.txt");
 
-            var dimensions = lines[0].Split(' ');
-            if (int.TryParse(dimensions[0], out int height) && int.TryParse(dimensions[1], out int width))
+            if (DataContext is MainWindowViewModel viewModel)
             {
-                viewModel.Image.Height = height;
-                viewModel.Image.Width = width;
+                viewModel.Image.update(lines[0], lines[1], "image");
+
+                viewModel.Image.OnPropertyChanged(nameof(viewModel.Image.Pixels));
+                viewModel.Image.OnPropertyChanged(nameof(viewModel.Image.FileNameText));
+
+                message.Text = "The .txt file is now loaded!";
+            }
+            else
+            {
+                Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
             }
 
-            foreach (char c in lines[1])
-            {
-                viewModel.Image.Pixels.Add(new PixelViewModel(c == '1' ? 1 : 0));
-            }
 
-            viewModel.Image.FileNameText = "image";
-            viewModel.Image.OnPropertyChanged(nameof(viewModel.Image.Pixels));
-
-            message.Text = "The .txt file is now loaded!";
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine("Error: DataContext is not set or is of the wrong type.");
+            Console.WriteLine($"Error reading file: {ex.Message}");
         }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error reading file: {ex.Message}");
-    }
-}
 
 
     public void SaveHandler(object sender, RoutedEventArgs args)
