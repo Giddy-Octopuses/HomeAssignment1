@@ -10,7 +10,6 @@ namespace ImageEditor.Views;
 
 public partial class MainWindow : Window
 {
-    public string? FileNameText;
     public MainWindow()
     {
         InitializeComponent();
@@ -94,6 +93,7 @@ public partial class MainWindow : Window
             if (DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.Image.VFlip();
+                viewModel.IsEdited = true;
                 message.Text = "The image is now flipped vertically!";
             }
             else
@@ -116,6 +116,7 @@ public partial class MainWindow : Window
             if (DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.Image.HFlip();
+                viewModel.IsEdited = true;
                 message.Text = "The image is now flipped horizontally!";
             }
             else
