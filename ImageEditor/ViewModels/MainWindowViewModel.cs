@@ -4,9 +4,9 @@ namespace ImageEditor.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public static MainWindowViewModel Instance { get; private set; }
+    public static MainWindowViewModel? Instance { get; private set; }
 
-    private ImageViewModel _image;
+    private ImageViewModel _image = new();
     public ImageViewModel Image
     {
         get => _image;
@@ -17,7 +17,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private string _fileName;
+    private string _fileName = string.Empty;
     public string FileName
     {
         get => _fileName;
@@ -28,7 +28,11 @@ public partial class MainWindowViewModel : ViewModelBase
             IsEdited = true; // For the *
         }
     }
-
+    public new event PropertyChangedEventHandler? PropertyChanged;
+    protected new void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
     // Size of the image based on how many pixels it contains
     public int GridHeight => (Image?.Height ?? 0) * 40 + 4;
     public int GridWidth => (Image?.Width ?? 0) * 40 + 4;
@@ -37,12 +41,6 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         Instance = this;
         Image = new ImageViewModel();
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private string _title = "ImageEditor";

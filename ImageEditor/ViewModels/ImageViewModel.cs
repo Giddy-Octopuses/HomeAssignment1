@@ -31,7 +31,7 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
     }
 
     // Loading the image based on the txt file
-    public void update(string size, string pixelData, string? fileName = null)
+    public void Update(string size, string pixelData, string? fileName = null)
     {
         Pixels = new ObservableCollection<PixelViewModel>();
 
@@ -54,9 +54,8 @@ public class ImageViewModel : ViewModelBase, INotifyPropertyChanged
 
         FileNameText = fileName;
     }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-    public virtual void OnPropertyChanged(string propertyName)
+    public new event PropertyChangedEventHandler? PropertyChanged;
+    public new void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

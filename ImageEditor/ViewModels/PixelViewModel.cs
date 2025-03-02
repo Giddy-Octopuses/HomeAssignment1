@@ -16,7 +16,10 @@ public class PixelViewModel : ViewModelBase
             if (SetProperty(ref _value, value))
             {
                 OnPropertyChanged(nameof(Color)); // Update color
-                MainWindowViewModel.Instance.IsEdited = true; // Mark as edited - for the *
+                if (MainWindowViewModel.Instance != null)
+                {
+                    MainWindowViewModel.Instance.IsEdited = true; // Mark as edited - for the *
+                }
             }
         }
     }

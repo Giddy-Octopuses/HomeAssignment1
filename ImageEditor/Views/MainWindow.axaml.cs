@@ -26,7 +26,7 @@ public partial class MainWindow : Window
             {
                 viewModel.FileName = "image";
                 viewModel.IsEdited = false; // Remove the star after loading
-                viewModel.Image.update(lines[0], lines[1], viewModel.FileName);
+                viewModel.Image.Update(lines[0], lines[1], viewModel.FileName);
 
                 viewModel.Image.OnPropertyChanged(nameof(viewModel.Image.Pixels));
                 viewModel.Image.OnPropertyChanged(nameof(viewModel.Image.FileNameText));
