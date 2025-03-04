@@ -9,7 +9,7 @@
         - created the buttons for each pixel, which would change colour once clicked
         - the Pixel list also gets updated
     - Emma: [branch: loading]
-        - made a stand in picture before loading the actual image.txt 
+        - made a stand in picture before loading the actual image.b2img.txt 
         - set the filename and the size in the UI (filename is changeable)
         - made the 'load' button work
     - Gabija:

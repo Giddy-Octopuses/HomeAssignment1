@@ -20,7 +20,7 @@ public partial class MainWindow : Window
     {
         try
         {
-            string[] lines = File.ReadAllLines("./Assets/image.txt");
+            string[] lines = File.ReadAllLines("./Assets/image.b2img.txt");
 
             if (DataContext is MainWindowViewModel viewModel)
             {
@@ -58,7 +58,7 @@ public partial class MainWindow : Window
                         viewModel.Image.FileNameText = "image";
                     }
 
-                    string filePath = $"../Images/{viewModel.Image.FileNameText}.txt"; // Folder for all images created
+                    string filePath = $"../Images/{viewModel.Image.FileNameText}.b2img.txt"; // Folder for all images created
                     string size = $"{viewModel.Image.Height} {viewModel.Image.Width}";
                     string pixelData = string.Join("", viewModel.Image.Pixels.Select(Value => Value.Value.ToString()));
 
