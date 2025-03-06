@@ -20,7 +20,7 @@ public partial class MainWindow : Window
     {
         try
         {
-            string[] lines = File.ReadAllLines("./Assets/image.b2img.txt");
+            string[] lines = File.ReadAllLines("../ImageEditor/Assets/image.b2img.txt");
 
             if (DataContext is MainWindowViewModel viewModel)
             {
