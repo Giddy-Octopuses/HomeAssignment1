@@ -1,25 +1,24 @@
-# HomeAssignment1
+# Advanced OOP – Home Assignment 1
 
-## First session
-- We met up on Febr 25 to discuss the initial steps. We started working on the project, for example created the initial version of the UI and the logic behind the different classes. You can see the commits made during this time on GitHub.
+- Image Editor for .b2img.txt file 
+- Assignment Duration: 2 weeks
+- Contributors: Annalena, Emma, Gabija
 
-## Individual work
-- We split up the work as follows:
-    - Annalena: [branch: pixelgrid]
-        - created the buttons for each pixel, which would change colour once clicked
-        - the Pixel list also gets updated
-    - Emma: [branch: loading]
-        - made a stand in picture before loading the actual image.b2img.txt 
-        - set the filename and the size in the UI (filename is changeable)
-        - made the 'load' button work
-    - Gabija:
-        - made the 'save' button work
-        - started on putting a * after the window title, when it's edited but not saved
+## Overview
+- This application was developed as part of the Advanced Object-Oriented Programming course. It allows users to:
+    - Load .b2img.txt file
+    - Display the image using a graphical interface
+    - Edit pixel values by clicking
+    - Save the modified image to a new or existing file
+    - Flip the image horizontally or vertically 
 
-## Second session
-- We met up on March 1 to finish the assignment. What we did:
-    - merged our individual code snippets
-    - made the UI prettier
-    - finished the work with the * after the window title
-    - chose and implemented an extra task: flipping the image vertically and horizontally
-    - cleaned and formatted the code for easier readability 
+## How to Use
+- Build and run the project
+- Click the Load button
+- The window title will display a * to indicate unsaved changes 
+- Now u can:
+    - Flip the image horizontally
+    - Flip the image vertically
+    - Click on any pixel in the grid (change black to white and white to black)
+    - Click the Save button
+    - Enter a file name (either existing or new)
